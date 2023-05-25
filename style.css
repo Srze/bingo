@@ -1,0 +1,66 @@
+body {
+  background-image: linear-gradient(
+    to right,
+    rgb(33, 33, 235),
+    rgb(239, 209, 75)
+  );
+}
+
+#ok {
+  text-align: center;
+}
+
+#welcome-screen {
+  visibility: visible;
+  padding: 5% !important;
+}
+
+#input {
+  width: 300px;
+}
+
+#submit {
+  width: 100px;
+}
+
+#submit:hover {
+  background-color: blue;
+}
+
+#welcome-message {
+  visibility: hidden;
+  margin: 0;
+  margin-top: -100px;
+}
+
+#welcome-message div {
+  margin: 0px;
+  padding: 0;
+}
+
+#content {
+  visibility: hidden !important;
+  margin-top: -50px;
+  padding: auto 0;
+}
+
+#content div {
+  margin: 0;
+}
+
+#numberBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 100px;
+}
+
+#btnYes,
+#btnNo {
+  font-size: 50px;
+
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+}
