@@ -1,4 +1,5 @@
 "use strict";
+// GLOBAL VARIABLES//
 const ok = document.querySelector("#ok");
 const input = document.querySelector("#input");
 const submit = document.querySelector("#submit");
@@ -10,10 +11,44 @@ const btnYes = document.querySelector("#btnYes");
 const btnNo = document.querySelector("#btnNo");
 const btnGoAgain = document.querySelector("#go-again");
 
-const init = function () {
-  luckyNumber.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// HELPER FUNCTIONS //
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+const btnNoFunction = function () {
+  document.querySelector(`#lucky-number-text`).textContent =
+    "Hm... that is weird. What about this one?";
+  btnNo.addEventListener("click", function () {
+    document.querySelector(`#lucky-number-text`).textContent =
+      "Still no? Well don't give up, keep trying!";
+  });
+  luckyNumber.textContent = numbers[0];
+  numbers.shift();
 };
-init();
+
+const goAgainFunction = function () {
+  document.querySelector(`#lucky-number-text`).textContent =
+    "One more round, let's go! Is this your lucky number?";
+  luckyNumber.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+  numbers = "";
+  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  shuffleArray(numbers);
+  setTimeout(() => {
+    luckyNumber.textContent = numbers[0];
+    numbers.shift();
+    luckyNumber.style.opacity = 1;
+  }, 5000);
+
+  btnYes.style.visibility = "visible";
+  btnNo.style.visibility = "visible";
+  btnGoAgain.style.visibility = "hidden";
+};
 
 // PASSWORD GUESS//
 const passGuess = function (e) {
@@ -29,58 +64,70 @@ const passGuess = function (e) {
   } else {
     return alert("TRY AGAIN...");
   }
+  // LUCKY NUMBER //
+  if ((content.style.visibility = "visible")) {
+    setTimeout(() => {
+      luckyNumber.textContent = numbers[0];
+      numbers.shift();
+      luckyNumber.style.opacity = 1;
+    }, 5000);
+  }
+
+  console.log(luckyNumber.textContent, numbers);
 };
 submit.addEventListener("click", passGuess);
 //////////////////////////////////////////////////////////////////////////
-// LUCKY NUMBER //
-if ((content.style.visibility = "visible")) {
-  setTimeout(() => {
-    luckyNumber.textContent = Math.trunc(Math.random() * 10) + 1;
-    luckyNumber.style.opacity = 1;
-  }, 10000);
-}
 
+// BUTTON YES //
 btnYes.addEventListener("click", function () {
   document.querySelector(`#lucky-number-text`).textContent =
-    "Nice! Let's goooo!";
+    "Bingo! Let's goooo!";
   btnYes.style.visibility = "hidden";
   btnNo.style.visibility = "hidden";
   btnGoAgain.style.visibility = "visible";
+
+  console.log(luckyNumber.textContent, numbers);
 });
+
+// BUTTON NO //
+// const btnNoFunction = function () {
+//   const randomNumber = Math.trunc(Math.random() * numbers.length) + 1;
+//   numbers.push(randomNumber);
+//   luckyNumber.textContent = randomNumber;
+//   document.querySelector(`#lucky-number-text`).textContent =
+//     "Hm... that is weird. What about this one?";
+//   btnNo.addEventListener("click", function () {
+//     document.querySelector(`#lucky-number-text`).textContent =
+//       "Still no? Well don't give up, keep trying!";
+//   });
+// };
+
 btnNo.addEventListener("click", function () {
-  const randomNumber = Math.trunc(Math.random() * 10) + 1;
-  luckyNumber.textContent = randomNumber;
-  document.querySelector(`#lucky-number-text`).textContent =
-    "Hm... that is weird. What about this one?";
-  btnNo.addEventListener("click", function () {
-    document.querySelector(`#lucky-number-text`).textContent =
-      "Still no? Well don't give up, keep trying!";
-  });
+  btnNoFunction();
+  if (numbers.length < 1) {
+    numbers = "";
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    shuffleArray(numbers);
+    luckyNumber.textContent = numbers[0];
+    numbers.shift();
+  }
+
+  console.log(luckyNumber.textContent, numbers);
 });
+
 /////////////////////////////////////////////////////////////////////////
 // GO AGAIN //
 btnGoAgain.addEventListener("click", function () {
-  document.querySelector(`#lucky-number-text`).textContent =
-    "One more round, let's go! Is this your lucky number?";
-  luckyNumber.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
-  setTimeout(() => {
-    luckyNumber.textContent = Math.trunc(Math.random() * 10) + 1;
-    luckyNumber.style.opacity = 1;
-  }, 5000);
+  goAgainFunction();
 
-  btnYes.style.visibility = "visible";
-  btnNo.style.visibility = "visible";
-  btnGoAgain.style.visibility = "hidden";
-
-  btnNo.addEventListener("click", function () {
-    const randomNumber = Math.trunc(Math.random() * 10) + 1;
-    luckyNumber.textContent = randomNumber;
-    document.querySelector(`#lucky-number-text`).textContent =
-      "Hm... that is weird. What about this one?";
-    btnNo.addEventListener("click", function () {
-      document.querySelector(`#lucky-number-text`).textContent =
-        "Still no? Well don't give up, keep trying!";
-    });
-  });
+  console.log(luckyNumber.textContent, numbers);
 });
 //////////////////////////////////////////////////////////////////
+const init = function () {
+  luckyNumber.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+  shuffleArray(numbers);
+
+  console.log(luckyNumber.textContent, numbers);
+};
+
+init();
