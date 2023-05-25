@@ -71,5 +71,16 @@ btnGoAgain.addEventListener("click", function () {
   btnYes.style.visibility = "visible";
   btnNo.style.visibility = "visible";
   btnGoAgain.style.visibility = "hidden";
+
+  btnNo.addEventListener("click", function () {
+    const randomNumber = Math.trunc(Math.random() * 10) + 1;
+    luckyNumber.textContent = randomNumber;
+    document.querySelector(`#lucky-number-text`).textContent =
+      "Hm... that is weird. What about this one?";
+    btnNo.addEventListener("click", function () {
+      document.querySelector(`#lucky-number-text`).textContent =
+        "Still no? Well don't give up, keep trying!";
+    });
+  });
 });
 //////////////////////////////////////////////////////////////////
