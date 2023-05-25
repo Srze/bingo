@@ -8,8 +8,11 @@ const content = document.querySelector("#content");
 const luckyNumber = document.querySelector("#lucky-number");
 const btnYes = document.querySelector("#btnYes");
 const btnNo = document.querySelector("#btnNo");
+const btnGoAgain = document.querySelector("#go-again");
 
-const init = function () {};
+const init = function () {
+  luckyNumber.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+};
 init();
 
 // PASSWORD GUESS//
@@ -31,7 +34,6 @@ submit.addEventListener("click", passGuess);
 //////////////////////////////////////////////////////////////////////////
 // LUCKY NUMBER //
 if ((content.style.visibility = "visible")) {
-  luckyNumber.style.opacity = 0;
   setTimeout(() => {
     luckyNumber.textContent = Math.trunc(Math.random() * 10) + 1;
     luckyNumber.style.opacity = 1;
@@ -41,16 +43,33 @@ if ((content.style.visibility = "visible")) {
 btnYes.addEventListener("click", function () {
   document.querySelector(`#lucky-number-text`).textContent =
     "Nice! Let's goooo!";
+  btnYes.style.visibility = "hidden";
+  btnNo.style.visibility = "hidden";
+  btnGoAgain.style.visibility = "visible";
 });
 btnNo.addEventListener("click", function () {
   const randomNumber = Math.trunc(Math.random() * 10) + 1;
   luckyNumber.textContent = randomNumber;
   document.querySelector(`#lucky-number-text`).textContent =
     "Hm... that is weird. What about this one?";
-  console.log(randomNumber, luckyNumber.textContent);
   btnNo.addEventListener("click", function () {
     document.querySelector(`#lucky-number-text`).textContent =
       "Still no? Well don't give up, keep trying!";
   });
 });
 /////////////////////////////////////////////////////////////////////////
+// GO AGAIN //
+btnGoAgain.addEventListener("click", function () {
+  document.querySelector(`#lucky-number-text`).textContent =
+    "One more round, let's go! Is this your lucky number?";
+  luckyNumber.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+  setTimeout(() => {
+    luckyNumber.textContent = Math.trunc(Math.random() * 10) + 1;
+    luckyNumber.style.opacity = 1;
+  }, 5000);
+
+  btnYes.style.visibility = "visible";
+  btnNo.style.visibility = "visible";
+  btnGoAgain.style.visibility = "hidden";
+});
+//////////////////////////////////////////////////////////////////
