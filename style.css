@@ -44,6 +44,10 @@ body {
   padding: auto 0;
 }
 
+#lucky-number-text {
+  height: 75px;
+}
+
 #content div {
   margin: 0;
 }

@@ -22,12 +22,13 @@ function shuffleArray(array) {
 }
 
 const btnNoFunction = function () {
-  document.querySelector(`#lucky-number-text`).textContent =
-    "Hm... that is weird. What about this one?";
-  btnNo.addEventListener("click", function () {
+  if (numbers.length >= 9)
+    document.querySelector(`#lucky-number-text`).textContent =
+      "Hm... that is weird. What about this one?";
+  if (numbers.length < 9)
     document.querySelector(`#lucky-number-text`).textContent =
       "Still no? Well don't give up, keep trying!";
-  });
+
   luckyNumber.textContent = numbers[0];
   numbers.shift();
 };
@@ -39,14 +40,17 @@ const goAgainFunction = function () {
   numbers = "";
   numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   shuffleArray(numbers);
+  btnYes.style.visibility = "hidden";
+  btnNo.style.visibility = "hidden";
   setTimeout(() => {
     luckyNumber.textContent = numbers[0];
     numbers.shift();
     luckyNumber.style.opacity = 1;
+
+    btnYes.style.visibility = "visible";
+    btnNo.style.visibility = "visible";
   }, 5000);
 
-  btnYes.style.visibility = "visible";
-  btnNo.style.visibility = "visible";
   btnGoAgain.style.visibility = "hidden";
 };
 
@@ -64,12 +68,18 @@ const passGuess = function (e) {
   } else {
     return alert("TRY AGAIN...");
   }
+
+  btnYes.style.visibility = "hidden";
+  btnNo.style.visibility = "hidden";
   // LUCKY NUMBER //
   if ((content.style.visibility = "visible")) {
     setTimeout(() => {
       luckyNumber.textContent = numbers[0];
       numbers.shift();
       luckyNumber.style.opacity = 1;
+
+      btnYes.style.visibility = "visible";
+      btnNo.style.visibility = "visible";
     }, 5000);
   }
 
@@ -117,11 +127,8 @@ btnNo.addEventListener("click", function () {
 
 /////////////////////////////////////////////////////////////////////////
 // GO AGAIN //
-btnGoAgain.addEventListener("click", function () {
-  goAgainFunction();
+btnGoAgain.addEventListener("click", goAgainFunction);
 
-  console.log(luckyNumber.textContent, numbers);
-});
 //////////////////////////////////////////////////////////////////
 const init = function () {
   luckyNumber.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
